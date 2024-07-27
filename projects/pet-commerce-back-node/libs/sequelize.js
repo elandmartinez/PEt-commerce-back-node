@@ -1,16 +1,13 @@
-const UserModel = require("../db/models/UserModel")
+const setupModels = require("../models/index")
 const { Sequelize } = require("sequelize")
 
-const URI = "mysql://root:admin123@localhost:8081/my_store"
-const sequelize = new Sequelize("mysql", "root", "admin123",{
-  host: "localhost",
+const URI = "mysql://root:admin123@localhost:3306/my_store"
+const sequelize = new Sequelize(URI, {
   dialect: "mysql"
 })
 
-const db = {}
+setupModels(sequelize)
 
-db.sequelize = sequelize
-db.models = {}
-db.models.User = UserModel(sequelize, Sequelize.DataTypes)
+sequelize.sync()
 
-module.exports = db
+module.exports = sequelize
