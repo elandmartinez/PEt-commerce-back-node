@@ -3,21 +3,13 @@ const { models } = require("../libs/sequelize")
 class UserService {
   constructor () {}
 
-  async createUser (newUser) {
-    try {
-      await models.User.create(newUser)
-    } catch (error) {
-      throw new Error("Error while creating the user: ", error)
-    }
-  }
-
   async getUsers () {
     try {
       const users = await models.User.findAll()
 
       return users
     } catch (error) {
-      throw new Error("Error while getting users: ", error)
+      console.error(error)
     }
   }
 
@@ -27,24 +19,39 @@ class UserService {
 
       return user
     } catch (error) {
-      throw new Error(error)
+      console.error(error)
     }
   }
 
-  async updateUser (newUserUpdate) {
+  async createUser (newUser) {
     try {
-      await models.User.update(newUserUpdate)
+      await models.User.create(newUser)
     } catch (error) {
-      throw new Error("Error while updating the user: ", error)
+      console.error(error)
+    }
+  }
+  async createUsers (newUsers) {
+    try {
+      await models.User.bulkCreate(newUsers)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async patchUser (userDataToUpdate, userId) {
+    try {
+      await models.User.update(userDataToUpdate, { where : {id: userId} })
+    } catch (error) {
+      console.error(error)
     }
   }
 
   async deleteUser (userId) {
     try {
-      const user = models.User.findOne(userId);
-      (await user).destroy()
+      const user = await models.User.findByPk(userId);
+      await user.destroy()
     } catch (error) {
-      throw new Error ("Error while deleting the user: ", error)
+      console.error(error)
     }
   }
 
