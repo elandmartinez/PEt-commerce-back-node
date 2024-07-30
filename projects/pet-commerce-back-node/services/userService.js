@@ -21,6 +21,16 @@ class UserService {
     }
   }
 
+  async findUser (userId) {
+    try {
+      const user = await models.User.findByPk(userId)
+
+      return user
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
   async updateUser (newUserUpdate) {
     try {
       await models.User.update(newUserUpdate)

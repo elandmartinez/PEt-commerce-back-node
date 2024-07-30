@@ -1,4 +1,4 @@
-const setupModels = require("../models/index")
+const setupModels = require("../db/models/index")
 const { Sequelize } = require("sequelize")
 
 const URI = "mysql://root:admin123@localhost:3306/my_store"
