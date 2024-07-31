@@ -7,25 +7,43 @@ class OrderService {
     try {
       await models.Order.create(newOrder)
     } catch (error) {
-      throw new Error("Error while creating the Order: ", error)
+      console.error(error)
     }
   }
 
-  async getOrder () {
+  async createOrders (newOrders) {
+    try {
+      await models.User.bulkCreate(newOrders)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getOrders () {
     try {
       const orders = await models.Order.findAll()
 
       return orders
     } catch (error) {
-      throw new Error("Error while getting orders: ", error)
+      console.error(error)
     }
   }
 
-  async updateOrder (newOrderUpdate) {
+  async findOrder (orderId) {
     try {
-      await models.Order.update(newOrderUpdate)
+      const order = await models.Order.findByPk(orderId)
+
+      return order
     } catch (error) {
-      throw new Error("Error while updating the order: ", error)
+      console.error(error)
+    }
+  }
+
+  async patchOrder (orderDataUpdate, orderId) {
+    try {
+      await models.Order.update(newOrderUpdate, {where: {id: orderId}})
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -34,10 +52,10 @@ class OrderService {
       const order = models.Order.findOne(orderId);
       (await order).destroy()
     } catch (error) {
-      throw new Error ("Error while deleting the order: ", error)
+      console.error(error)
     }
   }
 
 }
 
-module.exports = UserService
+module.exports = OrderService
