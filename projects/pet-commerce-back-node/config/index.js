@@ -12,6 +12,4 @@ const config = {
   jwtSecret: process.env.JWT_SECRET
 }
 
-console.log({process})
-
 module.exports = config

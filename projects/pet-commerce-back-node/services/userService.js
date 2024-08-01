@@ -13,7 +13,7 @@ class UserService {
     }
   }
 
-  async findUSerByEmail (email) {
+  async findUserByEmail (email) {
     try {
       const user = await models.User.findOne({where: {email: email}})
 
