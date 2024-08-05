@@ -32,7 +32,7 @@ class OrderService {
     }
   }
 
-  async getByClientId (clientId) {
+  async getByCustomerId (clientId) {
     try {
       const clientOrders = await models.Order.findAll({where: { clientId: clientId}})
        return clientOrders
