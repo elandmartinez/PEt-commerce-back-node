@@ -8,6 +8,7 @@ class OrderService {
       await models.Order.create(newOrder)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -16,6 +17,7 @@ class OrderService {
       await models.User.bulkCreate(newOrders)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -26,7 +28,19 @@ class OrderService {
       return orders
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
+  }
+
+  async getByClientId (clientId) {
+    try {
+      const clientOrders = await models.Order.findAll({where: { clientId: clientId}})
+       return clientOrders
+    } catch (error) {
+      console.error(error)
+      throw new Error(error)
+    }
+
   }
 
   async findOrder (orderId) {
@@ -36,6 +50,7 @@ class OrderService {
       return order
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -44,6 +59,7 @@ class OrderService {
       await models.Order.update(newOrderUpdate, {where: {id: orderId}})
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -53,6 +69,7 @@ class OrderService {
       (await order).destroy()
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
