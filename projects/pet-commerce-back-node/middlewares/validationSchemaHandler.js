@@ -2,7 +2,10 @@ const boom = require("@hapi/boom")
 
 function validationSchemaHandler (schema, property) {
   return (req, res, next) => {
-    const data = req[property]
+    var data = req[property]
+    if(property === "params"){
+      data = { id: data.id } || { email: data.email }
+    }
     const { error } = schema.validate(data, {abortEarly: false})
 
     if(error){

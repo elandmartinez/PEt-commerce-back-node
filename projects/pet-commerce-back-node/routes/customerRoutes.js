@@ -2,6 +2,8 @@ const express = require("express")
 const CustomerService = require("../services/customerService")
 const authenticateToken = require("../middlewares/authenticateToken")
 const validateRoles = require("../middlewares/validateRoles")
+const { createCustomerSchema, deleteCustomerSchema, getCustomerSchema, getCustomerByEmailSchema, updateCustomerSchema, } = require("../middlewares/validationSchemaHandler")
+const validationSchemaHandler = require("../middlewares/validationSchemaHandler")
 
 const customerService = new CustomerService()
 const router = express.Router()
@@ -25,8 +27,9 @@ router.get("/get",
 router.get("/get/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(getCustomerSchema, "params"),
   async (req, res) => {
-  const { id } =(req.params)
+  const { id } = req.params
   try {
     const customer = await customerService.findCustomer(parseInt(id))
 
@@ -39,9 +42,30 @@ router.get("/get/:id",
   }
 })
 
+router.get("/get/:email",
+  authenticateToken,
+  validateRoles,
+  validationSchemaHandler(getCustomerByEmailSchema, "params"),
+  async (req, res) => {
+    try {
+      const { email: customerEmail } = req.params
+      const customer = await customerService.getCustomerByEmailSchema(customerEmail)
+
+      res.status(200).json({
+        message: "Customer obtained!",
+        body: customer
+      })
+    } catch (error) {
+      console.error(error)
+      throw new Error(error)
+    }
+  }
+)
+
 router.post("/post-customer",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(createCustomerSchema, "body"),
   async (req, res) => {
   try {
     const customerData = req.body
@@ -76,6 +100,7 @@ router.post("/post-customers",
 router.patch("/patch-customer/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(updateCustomerSchema, "body"),
   async (req, res) => {
   try {
     const { id } = req.params
@@ -93,6 +118,7 @@ router.patch("/patch-customer/:id",
 router.delete("/delete/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(deleteCustomerSchema, "params"),
   async (req, res) => {
   try {
     const {id} = req.params

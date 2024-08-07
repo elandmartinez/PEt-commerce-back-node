@@ -14,6 +14,16 @@ class CustomerService {
     }
   }
 
+  async findCustomerByEmailId (customerEmail) {
+    try {
+      const customer = await models.User.findAll({where: {email: customerEmail}})
+      return customer
+    } catch (error) {
+      console.error(error)
+      throw new Error(error)
+    }
+  }
+
   async findCustomer (customerId) {
     try {
       const customer = await models.Customer.findByPk(customerId)

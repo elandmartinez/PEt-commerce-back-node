@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const idSchema = Joi.number().integer()
-const cardLastFourNumbersSchema = Joi.string().min(16).max()
+const cardLastFourNumbersSchema = Joi.string().min(16).max(16)
 const purchaseDateSchema = Joi.string()
 const statusSchema = Joi.string()
 const cardOwnerNameSchema = Joi.string()
@@ -12,21 +12,20 @@ const getOrderSchema = Joi.object({
 	id: idSchema.required(),
 })
 
-const getOrdersByCustomerIdSchema = Joi.object({
+const getOrdersByCustomerEmailSchema = Joi.object({
   customerId: customerIdSchema.required()
 })
 
 const createOrderSchema = Joi.object({
-  id,
   purchaseDate: purchaseDateSchema.required(),
-  cardOwnerName: cardOwnerNameSchema.require(),
+  cardOwnerName: cardOwnerNameSchema.required(),
   cardLastFourNumbers: cardLastFourNumbersSchema.required(),
   status: statusSchema.required(),
-	customerId: customerIdSchema().required(),
+	customerId: customerIdSchema.required(),
   productIds: productIdsSchema.required()
 });
 
-const updateCustomerSchema = Joi.object({
+const updateOrderSchema = Joi.object({
   purchaseDate: purchaseDateSchema,
   cardOwnerName: cardOwnerNameSchema,
   cardLastFourNumbers: cardLastFourNumbersSchema,
@@ -41,8 +40,8 @@ const deleteOrderSchema = Joi.object({
 
 module.exports = {
 	createOrderSchema,
-  updateCustomerSchema,
+  updateOrderSchema,
   getOrderSchema,
-  getOrdersByCustomerIdSchema,
+  getOrdersByCustomerEmailSchema,
   deleteOrderSchema
 }

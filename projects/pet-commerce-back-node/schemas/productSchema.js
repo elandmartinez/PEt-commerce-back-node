@@ -12,11 +12,6 @@ const expirationDateSchema = Joi.string()
 const elaborationDateSchema = Joi.string()
 const stockSchema = Joi.number().integer()
 
-const limit = Joi.number().integer().min(1)
-const offset = Joi.number().integer().min(0)
-const minPrice = Joi.number().integer().min(1)
-const maxPrice = Joi.number().integer().min(1)
-
 const createProductSchema = Joi.object({
   name: nameSchema.required(),
   description: descriptionSchema.required(),
@@ -35,7 +30,7 @@ const getProductSchema = Joi.object({
   id: idSchema.required(),
 })
 
-const updateProductPropSchema = Joi.object({
+const updateProductSchema = Joi.object({
   name: nameSchema,
   description: descriptionSchema,
   price: priceSchema,
@@ -56,6 +51,6 @@ const deleteProductSchema = Joi.object({
 
 module.exports = {
   getProductSchema,
-  updateProductPropSchema,
+  updateProductSchema,
   createProductSchema,
   deleteProductSchema}

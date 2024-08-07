@@ -2,6 +2,13 @@ const express = require("express")
 const ProductService = require("../services/productService")
 const authenticateToken = require("../middlewares/authenticateToken")
 const validateRoles = require("../middlewares/validateRoles")
+const validationSchemaHandler = require("../middlewares/validationSchemaHandler")
+const {
+  createProductSchema,
+  getProductSchema,
+  updateProductSchema,
+  deleteProductSchema
+} = require("../schemas/productSchema")
 
 const productService = new ProductService()
 const router = express.Router()
@@ -25,6 +32,7 @@ router.get("/get",
 router.get("/get/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(getProductSchema, "params"),
   async (req, res) => {
   const { id } =(req.params)
   try {
@@ -42,6 +50,7 @@ router.get("/get/:id",
 router.post("/post-product",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(createProductSchema, "body"),
   async (req, res) => {
   try {
     const productData = req.body
@@ -76,6 +85,7 @@ router.post("/post-products",
 router.patch("/patch-product/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(updateProductSchema, "body"),
   async (req, res) => {
   try {
     const { id } = req.params
@@ -93,6 +103,7 @@ router.patch("/patch-product/:id",
 router.delete("/delete/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(deleteProductSchema, "params"),
   async (req, res) => {
   try {
     const {id} = req.params

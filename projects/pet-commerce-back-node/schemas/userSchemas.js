@@ -12,7 +12,11 @@ const createUserSchema = Joi.object({
 })
 
 const getUserSchema = Joi.object({
-  id: idSchema.required()
+  id: idSchema
+})
+
+const getUserByEmailSchema = Joi.object({
+  id: emailSchema
 })
 
 const updateUserSchema = Joi.object({
@@ -28,6 +32,7 @@ const deleteUserSchema = Joi.object({
 module.exports = {
   createUserSchema,
   getUserSchema,
+  getUserByEmailSchema,
   updateUserSchema,
   deleteUserSchema
 }

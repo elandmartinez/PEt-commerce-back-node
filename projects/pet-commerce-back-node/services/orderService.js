@@ -32,9 +32,9 @@ class OrderService {
     }
   }
 
-  async getByCustomerId (clientId) {
+  async getByCustomerEmail (customerEmail) {
     try {
-      const clientOrders = await models.Order.findAll({where: { clientId: clientId}})
+      const clientOrders = await models.Order.findAll({where: { customerId: customerEmail}})
        return clientOrders
     } catch (error) {
       console.error(error)
@@ -54,9 +54,9 @@ class OrderService {
     }
   }
 
-  async patchOrder (orderDataUpdate, orderId) {
+  async patchOrder (newOrderDataUpdate, orderId) {
     try {
-      await models.Order.update(newOrderUpdate, {where: {id: orderId}})
+      await models.Order.update(newOrderDataUpdate, {where: {id: orderId}})
     } catch (error) {
       console.error(error)
       throw new Error(error)

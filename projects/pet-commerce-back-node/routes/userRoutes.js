@@ -2,6 +2,13 @@ const express = require("express")
 const UserService = require("../services/userService")
 const authenticateToken = require("../middlewares/authenticateToken")
 const validateRoles = require("../middlewares/validateRoles")
+const validationSchemaHandler = require("../middlewares/validationSchemaHandler")
+const {
+  createUserSchema,
+  getUserSchema,
+  updateUserSchema,
+  deleteUserSchema
+} = require("../schemas/userSchemas")
 
 const router = express.Router()
 const userService = new UserService()
@@ -25,6 +32,7 @@ router.get("/get",
 router.get("/get/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(getUserSchema, "params"),
   async (req, res) => {
   const { id } =(req.params)
   try {
@@ -42,6 +50,7 @@ router.get("/get/:id",
 router.post("/post-user",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(createUserSchema, "body"),
   async (req, res) => {
   try {
     const userData = req.body
@@ -76,6 +85,7 @@ router.post("/post-users",
 router.patch("/patch-user/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(updateUserSchema, "body"),
   async (req, res) => {
   try {
     const { id } = req.params
@@ -93,6 +103,7 @@ router.patch("/patch-user/:id",
 router.delete("/delete/:id",
   authenticateToken,
   validateRoles,
+  validationSchemaHandler(deleteUserSchema, "params"),
   async (req, res) => {
   try {
     const {id} = req.params
