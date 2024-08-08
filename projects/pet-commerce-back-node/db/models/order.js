@@ -32,7 +32,7 @@ const orderSchema = {
   },
   customerId: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     foreignKey: true,
     field: "client_id"
   },
