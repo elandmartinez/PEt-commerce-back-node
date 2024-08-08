@@ -38,12 +38,12 @@ const productSchema = {
   },
   expirationDate: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     field: "expiration_date"
   },
   elaborationDate: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     field: "elaboration_date"
   },
   price: {

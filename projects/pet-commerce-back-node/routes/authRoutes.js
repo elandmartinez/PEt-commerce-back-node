@@ -41,7 +41,7 @@ router.post("/sign-up", async (req, res) => {
     const userData = req.body
     console.log({userData})
     await userService.createUser(userData)
-    const token = createAndSignToken("CUSTOMER")
+    const token = createAndSignToken(userData.role)
 
     res.status(201).json({
       message: "User created",

@@ -26,6 +26,7 @@ router.get("/get",
     })
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
@@ -44,6 +45,7 @@ router.get("/get/:id",
     })
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
@@ -62,6 +64,7 @@ router.post("/post-product",
 
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
@@ -79,6 +82,7 @@ router.post("/post-products",
     })
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
@@ -97,6 +101,7 @@ router.patch("/patch-product/:id",
     })
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
@@ -115,6 +120,7 @@ router.delete("/delete/:id",
     })
   } catch (error) {
     console.error(error)
+    throw new Error(error)
   }
 })
 
