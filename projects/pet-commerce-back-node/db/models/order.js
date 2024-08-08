@@ -34,7 +34,7 @@ const orderSchema = {
     allowNull: false,
     type: DataTypes.INTEGER,
     foreignKey: true,
-    field: "client_id"
+    field: "customer_id"
   },
   productsIds: {
     allowNull: false,

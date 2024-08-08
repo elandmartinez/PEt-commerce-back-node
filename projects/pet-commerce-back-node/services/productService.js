@@ -10,6 +10,7 @@ class ProductService {
       return products
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -20,6 +21,7 @@ class ProductService {
       return product
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -28,6 +30,7 @@ class ProductService {
       await models.Product.create(newProduct)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
   async createProducts (newProducts) {
@@ -35,6 +38,7 @@ class ProductService {
       await models.Product.bulkCreate(newProducts)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -43,6 +47,7 @@ class ProductService {
       await models.Product.update(ProductDataToUpdate, { where : {id: productId} })
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -52,6 +57,7 @@ class ProductService {
       await product.destroy()
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 

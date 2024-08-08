@@ -1,6 +1,6 @@
 const CUSTOMER_ALLOWED_ENDPOINTS = [
   "/api/products/get",
-  "/api/orders/get-by-client-id",
+  "/api/orders/get-by-customer-id",
   "/api/orders/post-order",
   "api/clients/get-client"
 ]

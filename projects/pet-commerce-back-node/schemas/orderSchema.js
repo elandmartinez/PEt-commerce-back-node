@@ -12,8 +12,8 @@ const getOrderSchema = Joi.object({
 	id: idSchema.required(),
 })
 
-const getOrdersByCustomerEmailSchema = Joi.object({
-  customerId: customerIdSchema.required()
+const getOrdersByCustomerIdSchema = Joi.object({
+  id: customerIdSchema.required()
 })
 
 const createOrderSchema = Joi.object({
@@ -42,6 +42,6 @@ module.exports = {
 	createOrderSchema,
   updateOrderSchema,
   getOrderSchema,
-  getOrdersByCustomerEmailSchema,
+  getOrdersByCustomerIdSchema,
   deleteOrderSchema
 }

@@ -27,12 +27,12 @@ const customerSchema = {
   phoneNumber: {
     allowNull: false,
     unique: true,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     field: "phone_number"
   },
   countryCode: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     field: "country_code"
   },
 }

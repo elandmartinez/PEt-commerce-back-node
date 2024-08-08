@@ -1,4 +1,5 @@
 const { models } = require("../libs/sequelize")
+const hashPassword = require("../utils/hooks/hashPassword")
 
 class UserService {
   constructor () {}
@@ -10,6 +11,7 @@ class UserService {
       return users
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -20,6 +22,7 @@ class UserService {
       return user
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -30,14 +33,18 @@ class UserService {
       return user
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
   async createUser (newUser) {
+    const hashedCustomerPassword = await hashPassword(newUser.password)
+    newUser.password = hashedCustomerPassword
     try {
       await models.User.create(newUser)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
   async createUsers (newUsers) {
@@ -45,6 +52,7 @@ class UserService {
       await models.User.bulkCreate(newUsers)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -53,6 +61,7 @@ class UserService {
       await models.User.update(userDataToUpdate, { where : {id: userId} })
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -62,6 +71,7 @@ class UserService {
       await user.destroy()
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 

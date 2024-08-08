@@ -32,9 +32,9 @@ class OrderService {
     }
   }
 
-  async getByCustomerEmail (customerEmail) {
+  async getByCustomerId (customerId) {
     try {
-      const clientOrders = await models.Order.findAll({where: { customerId: customerEmail}})
+      const clientOrders = await models.Order.findAll({where: { customerId: customerId}})
        return clientOrders
     } catch (error) {
       console.error(error)

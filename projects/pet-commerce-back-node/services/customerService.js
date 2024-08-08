@@ -11,6 +11,7 @@ class CustomerService {
       return customers
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -33,6 +34,7 @@ class CustomerService {
       return customer
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -51,12 +53,15 @@ class CustomerService {
   }
 
   async createCustomer (newCustomer) {
-    const hashedCustomerPassword = hashPassword(newCustomer.password)
+    delete newCustomer.role
+
+    const hashedCustomerPassword = await hashPassword(newCustomer.password)
     newCustomer.password = hashedCustomerPassword
     try {
       await models.Customer.create(newCustomer)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
   async createCustomers (newCustomers) {
@@ -71,6 +76,7 @@ class CustomerService {
       await models.Customer.bulkCreate(newCustomers)
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -79,6 +85,7 @@ class CustomerService {
       await models.Customer.update(customerDataToUpdate, { where : {id: customerId} })
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 
@@ -88,6 +95,7 @@ class CustomerService {
       await customer.destroy()
     } catch (error) {
       console.error(error)
+      throw new Error(error)
     }
   }
 

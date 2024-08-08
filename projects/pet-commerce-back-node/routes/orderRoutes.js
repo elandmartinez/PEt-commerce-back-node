@@ -8,7 +8,7 @@ const {
   updateOrderSchema,
   getOrderSchema,
   deleteOrderSchema,
-  getOrdersByCustomerEmailSchema,
+  getOrdersByCustomerIdSchema,
 } = require("../schemas/orderSchema")
 
 const router = express.Router()
@@ -52,14 +52,14 @@ router.get("/get/:id",
   }
 })
 
-router.get("/get-by-customer-email/:email",
+router.get("/get-by-customer-id/:id",
   authenticateToken,
   validateRoles,
-  validationSchemaHandler(getOrdersByCustomerEmailSchema, "params"),
+  validationSchemaHandler(getOrdersByCustomerIdSchema, "params"),
   async (req, res) => {
     try {
-      const { customerId } = req.params
-      const clientOrders = await orderService.getByCustomerEmail(customerId)
+      const { id } = req.params
+      const clientOrders = await orderService.getByCustomerId(id)
 
       res.status(200).json({
         message: "Client orders retreived",
